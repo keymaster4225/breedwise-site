@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BreedWise — Horse breeding records for mares, stallions, and foals. Offline-first mobile app for iOS and Android.">
+  <title>BreedWise — Horse Breeding Records</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary:              #97B498;
+      --primary-container:    #D5E5D6;
+      --on-primary-container: #2E5A30;
+      --secondary:            #C19A6B;
+      --secondary-container:  #F0E2CE;
+      --surface:              #FDFBF7;
+      --surface-variant:      #F4EFE0;
+      --on-surface:           #4A3728;
+      --on-surface-variant:   #706259;
+      --outline:              #C4B5A4;
+      --outline-variant:      #DDD4C5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--surface);
+      color: var(--on-surface);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      object-fit: cover;
+    }
+
+    .nav-name {
+      font-family: 'Lora', serif;
+      font-size: 19px;
+      color: var(--on-surface);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── Hero ────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 88px 24px 72px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(36px, 6vw, 54px);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--on-surface);
+      margin-bottom: 22px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--on-surface-variant);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.7;
+    }
+
+    /* ── Store badges ────────────────────────────────── */
+    .store-badges {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      background: var(--on-surface);
+      color: #FDFBF7;
+      text-decoration: none;
+      padding: 11px 22px 11px 18px;
+      border-radius: 13px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 2px 8px rgba(74,55,40,0.14);
+    }
+
+    .store-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74,55,40,0.18);
+    }
+
+    .store-badge svg { flex-shrink: 0; }
+
+    .badge-text { text-align: left; line-height: 1.2; }
+    .badge-subtitle { display: block; font-size: 10.5px; opacity: 0.75; letter-spacing: 0.02em; margin-bottom: 1px; }
+    .badge-title    { display: block; font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+
+    /* ── Screenshot ──────────────────────────────────── */
+    .screenshot-section {
+      background: var(--surface-variant);
+      padding: 64px 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .screenshot-wrap {
+      position: relative;
+      max-width: 280px;
+      width: 100%;
+    }
+
+    /* Visible when screenshot.png exists */
+    .screenshot-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 28px;
+      box-shadow:
+        0 24px 64px rgba(74,55,40,0.16),
+        0 6px 18px rgba(74,55,40,0.10);
+    }
+
+    /* Placeholder shown when img is missing */
+    .screenshot-wrap img[src="screenshot.png"]:not([complete]) + .screenshot-placeholder,
+    .screenshot-placeholder {
+      background: var(--primary-container);
+      width: 280px;
+      height: 520px;
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--on-primary-container);
+      gap: 10px;
+      font-size: 13px;
+      opacity: 0.8;
+      box-shadow: 0 24px 64px rgba(74,55,40,0.12);
+    }
+
+    /* ── Features ────────────────────────────────────── */
+    .features-section {
+      padding: 88px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      font-family: 'Lora', serif;
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 400;
+      text-align: center;
+      color: var(--on-surface);
+      margin-bottom: 16px;
+      letter-spacing: -0.015em;
+    }
+
+    .accent-rule {
+      width: 36px;
+      height: 3px;
+      background: var(--secondary);
+      border: none;
+      border-radius: 2px;
+      margin: 0 auto 52px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: var(--primary-container);
+      border-radius: 18px;
+      padding: 30px 26px;
+    }
+
+    .feature-icon {
+      font-size: 26px;
+      margin-bottom: 14px;
+      display: block;
+      line-height: 1;
+    }
+
+    .feature-title {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--on-primary-container);
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--on-surface-variant);
+      line-height: 1.65;
+    }
+
+    /* ── Footer ──────────────────────────────────────── */
+    footer {
+      background: var(--on-surface);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: 'Lora', serif;
+      font-size: 19px;
+      color: #FDFBF7;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .footer-badges {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .footer-badge {
+      color: #FDFBF7;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid rgba(253,251,247,0.25);
+      padding: 7px 16px;
+      border-radius: 8px;
+      transition: border-color 0.15s, opacity 0.15s;
+      opacity: 0.75;
+    }
+    .footer-badge:hover { border-color: rgba(253,251,247,0.6); opacity: 1; }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #FDFBF7;
+      opacity: 0.4;
+    }
+
+    /* ── Responsive ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { padding: 12px 20px; }
+      .hero { padding: 64px 20px 56px; }
+      .features-section { padding: 64px 16px; }
+      .store-badge { padding: 10px 18px 10px 14px; }
+      .badge-title { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <img src="assets/icon.png" alt="" class="nav-logo" aria-hidden="true">
+    <span class="nav-name">BreedWise</span>
+  </nav>
+
+  <section class="hero" aria-labelledby="hero-heading">
+    <p class="hero-eyebrow">Horse Breeding Records</p>
+    <h1 id="hero-heading">Your breeding records,<br>always at hand.</h1>
+    <p>BreedWise keeps your mare and stallion records organized and offline-first — from daily logs to foaling, nothing slips through the cracks.</p>
+    <div class="store-badges">
+
+      <a href="https://apps.apple.com/us/app/breedwise-for-horse-breeders/id6761438369"
+         class="store-badge"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Download BreedWise on the App Store">
+        <svg width="18" height="22" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.1 268.1-317.1 70.5 0 126.4 48.1 165.8 48.1 37.5 0 102.2-51 176.1-51 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/>
+        </svg>
+        <div class="badge-text">
+          <span class="badge-subtitle">Download on the</span>
+          <span class="badge-title">App Store</span>
+        </div>
+      </a>
+
+      <a href="https://play.google.com/store/apps/details?id=com.anonymous.breedwise"
+         class="store-badge"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Get BreedWise on Google Play">
+        <svg width="18" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <div class="badge-text">
+          <span class="badge-subtitle">Get it on</span>
+          <span class="badge-title">Google Play</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="screenshot-section" aria-label="App screenshot">
+    <div class="screenshot-wrap">
+      <!-- Replace screenshot.png with an actual app screenshot when ready -->
+      <div class="screenshot-placeholder" role="img" aria-label="BreedWise app screenshot placeholder">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Add screenshot.png here</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section" aria-labelledby="features-heading">
+    <h2 class="section-heading" id="features-heading">Everything your breeding program needs</h2>
+    <hr class="accent-rule">
+    <div class="features-grid">
+
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">🐴</span>
+        <h3 class="feature-title">Mare &amp; Stallion Records</h3>
+        <p class="feature-desc">Daily logs, breeding history, and foaling records for every horse in your operation — all in one place.</p>
+      </article>
+
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">📅</span>
+        <h3 class="feature-title">Smart Dashboard Alerts</h3>
+        <p class="feature-desc">Reminders for approaching due dates, pregnancy checks, and heat cycles — derived from your own data, not guesswork.</p>
+      </article>
+
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">📡</span>
+        <h3 class="feature-title">Offline-First</h3>
+        <p class="feature-desc">All records live on your device. No account required, no cloud dependency — works in the barn or the pasture.</p>
+      </article>
+
+      <article class="feature-card">
+        <span class="feature-icon" aria-hidden="true">🧬</span>
+        <h3 class="feature-title">Full Breeding Traceability</h3>
+        <p class="feature-desc">Log live cover, AI, and frozen semen with cycle-by-cycle detail, ovulation tracking, and foal outcomes.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-name">BreedWise</p>
+    <div class="footer-badges">
+      <a href="https://apps.apple.com/us/app/breedwise-for-horse-breeders/id6761438369"
+         class="footer-badge"
+         target="_blank"
+         rel="noopener noreferrer">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=com.anonymous.breedwise"
+         class="footer-badge"
+         target="_blank"
+         rel="noopener noreferrer">Google Play</a>
+    </div>
+    <p class="footer-copy">© 2025 BreedWise. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
