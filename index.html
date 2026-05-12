@@ -480,47 +480,18 @@
       gap: 14px;
       padding: 4px 0;
     }
-    .uterus-diagram {
-      position: relative;
-      width: 180px;
-      height: 110px;
+    .cyst-svg-wrap {
+      width: 100%;
+      max-width: 220px;
+      margin: 0 auto;
     }
-    .uterus-body {
-      position: absolute;
-      bottom: 0; left: 50%;
-      transform: translateX(-50%);
-      width: 68px; height: 76px;
-      background: var(--cream);
-      border: 2px solid var(--outline);
-      border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
-    }
-    .uterus-horn {
-      position: absolute;
-      bottom: 46px;
-      width: 54px; height: 38px;
-      background: transparent;
-      border: 2px solid var(--outline);
-      border-bottom: none;
-      border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-    }
-    .uterus-horn.left  { left: 14px;  transform: rotate(-22deg); }
-    .uterus-horn.right { right: 14px; transform: rotate(22deg); }
-    .cyst-pin {
-      position: absolute;
-      width: 13px; height: 13px;
-      background: var(--tan);
-      border: 2.5px solid var(--cream);
-      border-radius: 50%;
-      bottom: 65px; left: 44px;
-      box-shadow: 0 2px 6px rgba(74,55,40,0.22);
-    }
-    .cyst-pin-old {
-      position: absolute;
-      width: 9px; height: 9px;
-      background: var(--outline);
-      border: 2px solid var(--cream);
-      border-radius: 50%;
-      bottom: 54px; left: 55px;
+    .cyst-svg-wrap svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: var(--cream-warm);
+      border-radius: 8px;
+      border: 1px solid var(--outline-faint);
     }
     .map-legend {
       display: flex;
@@ -539,7 +510,7 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
-    .legend-dot.tan   { background: var(--tan); }
+    .legend-dot.red   { background: #BA1A1A; }
     .legend-dot.muted { background: var(--outline); }
     .map-caption {
       font-size: 10.5px;
@@ -829,7 +800,13 @@
             </div>
           </div>
           <div class="ui-label">Cyst Map</div>
-          <div class="ui-block" style="height:56px;background:var(--tan-container);">🗺️</div>
+          <div class="ui-block" style="height:56px;background:var(--tan-container);padding:8px;" aria-hidden="true">
+            <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" style="height:100%;width:auto;" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 50 40 C 42 28 22 12 10 18 C 6 21 6 27 10 30 C 22 38 35 52 40 64 L 40 92 C 40 98 44 99 50 99 C 56 99 60 98 60 92 L 60 64 C 65 52 78 38 90 30 C 94 27 94 21 90 18 C 78 12 62 28 50 40 Z"
+                    fill="#FDFBF7" stroke="#C4B5A4" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="30" cy="36" r="6" fill="#BA1A1A" stroke="#FDFBF7" stroke-width="2"/>
+            </svg>
+          </div>
           <div class="ui-label">Export &amp; Share</div>
           <div class="ui-row plain">
             <span class="ui-icon" aria-hidden="true">📄</span>
@@ -931,16 +908,20 @@
         <div class="app-panel tan">
           <div class="panel-header">Uterine Cyst Map · Rosie</div>
           <div class="cyst-map-container">
-            <div class="uterus-diagram" aria-hidden="true">
-              <div class="uterus-horn left"></div>
-              <div class="uterus-horn right"></div>
-              <div class="uterus-body"></div>
-              <div class="cyst-pin"></div>
-              <div class="cyst-pin-old"></div>
+            <div class="cyst-svg-wrap" aria-hidden="true">
+              <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 50 40 C 42 28 22 12 10 18 C 6 21 6 27 10 30 C 22 38 35 52 40 64 L 40 92 C 40 98 44 99 50 99 C 56 99 60 98 60 92 L 60 64 C 65 52 78 38 90 30 C 94 27 94 21 90 18 C 78 12 62 28 50 40 Z"
+                      fill="#FDFBF7" stroke="#C4B5A4" stroke-width="1.4" stroke-linejoin="round"/>
+                <!-- Active pin: left horn mid -->
+                <circle cx="30" cy="36" r="5" fill="#BA1A1A" stroke="#FDFBF7" stroke-width="1.5"/>
+                <text x="30" y="39.5" text-anchor="middle" fill="white" font-size="5.5" font-weight="700" font-family="Inter,sans-serif">1</text>
+                <!-- Ghost pin: right horn mid (previous session) -->
+                <circle cx="70" cy="36" r="4" fill="#FDFBF7" stroke="#706259" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.72"/>
+              </svg>
             </div>
             <div class="map-legend">
               <div class="legend-item">
-                <div class="legend-dot tan"></div>
+                <div class="legend-dot red"></div>
                 Apr 14 — 8mm
               </div>
               <div class="legend-item">
