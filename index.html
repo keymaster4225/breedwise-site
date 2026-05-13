@@ -430,27 +430,61 @@
     .status-chip.open    { background: var(--cream-warm); color: var(--text-muted); border: 1px solid var(--outline); }
     .status-chip.foaled  { background: #E3EEF9; color: #2D5F8A; }
 
-    /* Photo log */
-    .photo-grid {
+    /* Photo gallery */
+    .photo-featured {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 40% 35%, rgba(253,251,247,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse at 55% 60%, rgba(193,154,107,0.25) 0%, transparent 45%),
+        linear-gradient(155deg, #8B7355 0%, #C19A6B 40%, #E8DCCC 100%);
+    }
+    .photo-featured-label {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      font-size: 9px;
+      font-weight: 500;
+      color: var(--cream);
+      background: rgba(74, 55, 40, 0.55);
+      padding: 2px 8px;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .photo-strip {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 6px;
       margin-bottom: 10px;
     }
-    .photo-thumb {
+    .photo-strip-thumb {
       aspect-ratio: 1;
       border-radius: 8px;
+      border: 2px solid transparent;
+    }
+    .photo-strip-thumb.selected { border-color: var(--tan); }
+    .photo-strip-thumb.us {
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(155,138,125,0.45) 0%, transparent 55%),
+        linear-gradient(160deg, #4A3728, #706259);
+    }
+    .photo-strip-thumb.warm {
+      background: linear-gradient(140deg, #C19A6B, #F0E2CE);
+    }
+    .photo-strip-thumb.add {
       background: var(--cream);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      border: 1px solid var(--outline-faint);
-    }
-    .photo-thumb.add {
-      font-size: 16px;
-      opacity: 0.3;
-      border-style: dashed;
+      font-size: 14px;
+      color: var(--text-muted);
+      opacity: 0.4;
+      border: 1.5px dashed var(--outline);
       font-family: 'Inter', sans-serif;
     }
     .photo-entry {
@@ -461,6 +495,12 @@
       background: var(--cream);
       border-radius: 10px;
       margin-top: 6px;
+    }
+    .entry-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
     .photo-entry-label { font-size: 11px; color: var(--text-secondary); flex: 1; }
     .photo-count {
@@ -768,10 +808,10 @@
               <div class="ui-text muted">Cycle day 9</div>
             </div>
           </div>
-          <div class="ui-label">Photo Log</div>
-          <div class="ui-block" style="height:48px;">📷</div>
+          <div class="ui-label">Photos</div>
+          <div class="ui-block" style="height:48px;background:linear-gradient(135deg,#8B7355,#C19A6B);border-radius:6px;"></div>
           <div class="ui-row plain">
-            <span class="ui-icon" aria-hidden="true">📷</span>
+            <span class="entry-dot" style="background:var(--cocoa);width:6px;height:6px;display:inline-block;" aria-hidden="true"></span>
             <div class="ui-text muted">Ultrasound · Apr 14</div>
           </div>
           <div style="display:flex;gap:4px;margin-top:2px;">
@@ -869,22 +909,23 @@
     <article class="feature-row">
       <div data-reveal>
         <div class="app-panel">
-          <div class="panel-header">Photo Log · Bella</div>
-          <div class="photo-grid">
-            <div class="photo-thumb">📷</div>
-            <div class="photo-thumb">🔬</div>
-            <div class="photo-thumb">📷</div>
-            <div class="photo-thumb">🔬</div>
-            <div class="photo-thumb">📷</div>
-            <div class="photo-thumb add">+</div>
+          <div class="panel-header">Photos · Bella</div>
+          <div class="photo-featured">
+            <span class="photo-featured-label">Apr 26 · Day 14 check</span>
+          </div>
+          <div class="photo-strip">
+            <div class="photo-strip-thumb us"></div>
+            <div class="photo-strip-thumb warm selected"></div>
+            <div class="photo-strip-thumb us"></div>
+            <div class="photo-strip-thumb add">+</div>
           </div>
           <div class="photo-entry">
-            <span style="font-size:14px;">🔬</span>
+            <span class="entry-dot" style="background: var(--cocoa);"></span>
             <span class="photo-entry-label">Ultrasound · 22mm follicle · Apr 14</span>
             <span class="photo-count">3 photos</span>
           </div>
           <div class="photo-entry">
-            <span style="font-size:14px;">📷</span>
+            <span class="entry-dot" style="background: var(--tan);"></span>
             <span class="photo-entry-label">Day 14 check · Apr 26</span>
             <span class="photo-count">1 photo</span>
           </div>
